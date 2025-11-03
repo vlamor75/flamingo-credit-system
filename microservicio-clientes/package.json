@@ -1,0 +1,21 @@
+ {
+    "name": "microservicio-clientes",
+    "version": "1.0.0",
+    "description": "Microservicio de gestión de clientes - Sistema Flamingo",
+    "main": "src/index.js",
+    "scripts": {
+      "start": "node src/index.js",
+      "dev": "node --watch src/index.js"
+    },
+    "keywords": ["microservicio", "clientes", "api", "rest"],
+    "author": "Tu nombre",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.18.0",
+      "pg": "^8.11.0",
+      "dotenv": "^16.0.0",
+      "helmet": "^7.1.0",
+      "cors": "^2.8.5",
+      "express-validator": "^7.0.0"
+    }
+  } 
