@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flamingo - Sistema de Créditos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🦩 Flamingo</h1>
+                <p>Sistema de Gestión de Créditos</p>
+            </div>
+            <div class="status">
+                <span id="api-status" class="status-indicator">🔴 Desconectado</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="clientes">👥 Clientes</button>
+            <button class="tab-btn" data-tab="creditos">💰 Créditos</button>
+            <button class="tab-btn" data-tab="solicitar">➕ Nueva Solicitud</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="content">
+            <!-- Tab: Clientes -->
+            <section id="tab-clientes" class="tab-content active">
+                <div class="section-header">
+                    <h2>Lista de Clientes</h2>
+                    <button class="btn btn-primary" onclick="loadClientes()">🔄 Refrescar</button>
+                </div>
+                <div id="clientes-list" class="cards-grid">
+                    <div class="loading">Cargando clientes...</div>
+                </div>
+            </section>
+
+            <!-- Tab: Créditos -->
+            <section id="tab-creditos" class="tab-content">
+                <div class="section-header">
+                    <h2>Lista de Créditos</h2>
+                    <button class="btn btn-primary" onclick="loadCreditos()">🔄 Refrescar</button>
+                </div>
+                <div class="filters">
+                    <select id="filter-estado" onchange="filterCreditos()">
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="aprobado">Aprobado</option>
+                        <option value="rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div id="creditos-list" class="cards-grid">
+                    <div class="loading">Cargando créditos...</div>
+                </div>
+            </section>
+
+            <!-- Tab: Nueva Solicitud -->
+            <section id="tab-solicitar" class="tab-content">
+                <div class="section-header">
+                    <h2>Nueva Solicitud de Crédito</h2>
+                </div>
+                <div class="form-container">
+                    <form id="form-credito" onsubmit="crearCredito(event)">
+                        <div class="form-group">
+                            <label for="cliente_id">Cliente *</label>
+                            <select id="cliente_id" required>
+                                <option value="">Seleccione un cliente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="monto_solicitado">Monto Solicitado (COP) *</label>
+                            <input type="number" id="monto_solicitado" required
+                                   min="100000" step="100000"
+                                   placeholder="5000000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="plazo_meses">Plazo (meses) *</label>
+                            <input type="number" id="plazo_meses" required
+                                   min="6" max="60"
+                                   placeholder="24">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tasa_interes">Tasa de Interés (%) *</label>
+                            <input type="number" id="tasa_interes" required
+                                   min="1" max="30" step="0.1"
+                                   placeholder="11.5">
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-large">
+                            ✅ Crear Solicitud de Crédito
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para gestionar crédito -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Gestionar Crédito</h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
