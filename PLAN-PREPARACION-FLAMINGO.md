@@ -137,51 +137,67 @@ flamingo-credit-system/
 
 ## 📅 CRONOGRAMA DETALLADO
 
-### 🗓️ **HOY DOMINGO (2 horas restantes: 3:00 PM - 5:00 PM)**
+### 🗓️ **DOMINGO (COMPLETADO ✅)**
 
 #### **Bloque 1: Microservicio Clientes (1 hora) - 3:00-4:00 PM**
-- [ ] Estructura de carpetas
-- [ ] Configuración de base de datos
-- [ ] Modelo de Cliente
-- [ ] Controller con CRUD
-- [ ] Routes con validaciones
-- [ ] index.js principal
-- [ ] Dockerfile
+- [x] Estructura de carpetas
+- [x] Configuración de base de datos
+- [x] Modelo de Cliente
+- [x] Controller con CRUD
+- [x] Routes con validaciones
+- [x] index.js principal
+- [x] Dockerfile
 
 #### **Bloque 2: Docker Compose + PostgreSQL (45 min) - 4:00-4:45 PM**
-- [ ] Crear docker-compose.yml
-- [ ] Configurar PostgreSQL
-- [ ] Levantar servicios
-- [ ] Probar conexión a BD
-- [ ] Crear tabla clientes
+- [x] Crear docker-compose.yml
+- [x] Configurar PostgreSQL
+- [x] Levantar servicios
+- [x] Probar conexión a BD
+- [x] Crear tabla clientes
 
 #### **Bloque 3: Testing + Git (15 min) - 4:45-5:00 PM**
-- [ ] Probar endpoints con curl/Postman
-- [ ] Commits organizados
-- [ ] Documentar en README
+- [x] Probar endpoints con curl/Postman
+- [x] Commits organizados
+- [x] Documentar en README
 
 ---
 
-### 🗓️ **LUNES 3 NOV (4-5 horas)**
+### 🗓️ **LUNES 3 NOV (4-5 horas) - EN PROGRESO 🔄**
 
-#### **Bloque 1: Microservicio Créditos (2 horas)**
-- [ ] Estructura completa
-- [ ] Modelo de Crédito
-- [ ] Comunicación con MS-Clientes (axios)
-- [ ] Lógica de aprobación
-- [ ] Dockerfile
+#### **Bloque 1: Microservicio Créditos (2 horas) ✅ COMPLETADO**
+- [x] Estructura completa (config, models, controllers, routes, services)
+- [x] Modelo de Crédito (CRUD + findByCliente)
+- [x] Comunicación con MS-Clientes (axios) - services/clientes.service.js
+- [x] Lógica de aprobación/rechazo
+- [x] Dockerfile + .dockerignore
+- [x] Actualizar docker-compose.yml con MS-Créditos
+- [x] Actualizar init-db/01-create-tables.sql con tabla creditos
 
-#### **Bloque 2: Integración y Testing (1.5 horas)**
-- [ ] Levantar todos los servicios
-- [ ] Probar flujo completo
-- [ ] Casos de prueba
-- [ ] Manejo de errores
+**PROGRESO: 100% del Bloque 1**
 
-#### **Bloque 3: Oracle - Teoría Aplicada (1.5 horas)**
+#### **Bloque 2: Integración y Testing (1.5 horas) 🔄 EN PROGRESO**
+- [ ] Detener servicios anteriores
+- [ ] Levantar todos los servicios con docker-compose up --build
+- [ ] Verificar logs de los 3 servicios (PostgreSQL, MS-Clientes, MS-Créditos)
+- [ ] Probar flujo completo:
+  - Crear cliente en MS-Clientes
+  - Crear crédito en MS-Créditos (verificando cliente)
+  - Aprobar/Rechazar crédito
+  - Consultar créditos por cliente
+- [ ] Casos de prueba con curl
+- [ ] Validar manejo de errores (cliente inexistente, servicio caído)
+- [ ] Git commit del MS-Créditos
+
+**PROGRESO: 0% del Bloque 2 - SIGUIENTE PASO**
+
+#### **Bloque 3: Oracle - Teoría Aplicada (1.5 horas) ⏳ PENDIENTE**
 - [ ] Comparativa PostgreSQL vs Oracle
-- [ ] Traducir queries a Oracle
-- [ ] PL/SQL básico
-- [ ] Procedures y Functions
+- [ ] Traducir queries del proyecto a Oracle
+- [ ] PL/SQL básico (procedimientos, funciones)
+- [ ] Procedures y Functions aplicados al proyecto
+- [ ] Triggers y secuencias
+
+**PROGRESO: 0% del Bloque 3**
 
 ---
 

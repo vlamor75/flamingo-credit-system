@@ -47,3 +47,46 @@
   -- Mensaje de confirmación
   SELECT 'Base de datos inicializada correctamente'
    AS status;
+
+   -- ========================================
+  -- TABLA: creditos
+  -- ========================================
+  CREATE TABLE IF NOT EXISTS creditos (
+      id SERIAL PRIMARY KEY,
+      cliente_id INTEGER NOT NULL,
+      monto_solicitado DECIMAL(15,2) NOT NULL,
+      plazo_meses INTEGER NOT NULL,
+      tasa_interes DECIMAL(5,2) NOT NULL,
+      estado VARCHAR(20) DEFAULT 'pendiente',
+      motivo_rechazo TEXT,
+      created_at TIMESTAMP DEFAULT
+  CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT
+  CURRENT_TIMESTAMP,
+
+      -- FOREIGN KEY: Relación con clientes
+      CONSTRAINT fk_cliente
+          FOREIGN KEY (cliente_id)
+          REFERENCES clientes(id)
+          ON DELETE CASCADE
+  );
+
+  -- Índices para mejorar performance
+  CREATE INDEX idx_creditos_cliente ON
+  creditos(cliente_id);
+  CREATE INDEX idx_creditos_estado ON
+  creditos(estado);
+
+  -- ========================================
+  -- DATOS DE PRUEBA: Créditos
+  -- ========================================
+  INSERT INTO creditos (cliente_id,
+  monto_solicitado, plazo_meses, tasa_interes,
+  estado) VALUES
+  (1, 5000000, 24, 12.5, 'aprobado'),
+  (2, 3000000, 12, 10.0, 'pendiente'),
+  (3, 10000000, 48, 15.0, 'rechazado');
+
+  -- Mensaje de confirmación final
+  SELECT 'Tablas de clientes y créditos creadas
+  correctamente' AS status;

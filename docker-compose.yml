@@ -46,6 +46,32 @@ services:
     networks:
       - flamingo-network
 
+  microservicio-creditos:
+    build:
+      context: ./microservicio-creditos
+      dockerfile: Dockerfile
+    container_name: flamingo-ms-creditos
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: flamingo
+      DB_USER: postgres
+      DB_PASSWORD: postgres123
+      JWT_SECRET: mi_super_secreto_flamingo_2024
+      MS_CLIENTES_URL: http://microservicio-clientes:3001
+    ports:
+      - "3002:3002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      microservicio-clientes:
+        condition: service_started
+    networks:
+      - flamingo-network
+
 volumes:
   postgres_data:
     driver: local
