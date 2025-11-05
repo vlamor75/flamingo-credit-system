@@ -24,6 +24,7 @@
             <button class="tab-btn active" data-tab="clientes">👥 Clientes</button>
             <button class="tab-btn" data-tab="creditos">💰 Créditos</button>
             <button class="tab-btn" data-tab="solicitar">➕ Nueva Solicitud</button>
+            <button class="tab-btn" data-tab="arquitectura">🏗️ Arquitectura</button>
         </nav>
 
         <!-- Tab Content -->
@@ -97,6 +98,131 @@
                             ✅ Crear Solicitud de Crédito
                         </button>
                     </form>
+                </div>
+            </section>
+
+            <!-- Tab: Arquitectura -->
+            <section id="tab-arquitectura" class="tab-content">
+                <div class="section-header">
+                    <h2>Arquitectura del Sistema</h2>
+                </div>
+
+                <div class="architecture-container">
+                    <div class="arch-section">
+                        <h3>🏗️ Arquitectura de Microservicios</h3>
+                        <div class="diagram">
+                            <div class="service-box">
+                                <div class="service-icon">👥</div>
+                                <h4>MS-Clientes</h4>
+                                <p>Puerto: 3001</p>
+                                <ul>
+                                    <li>CRUD Clientes</li>
+                                    <li>Validaciones</li>
+                                    <li>Autenticación</li>
+                                </ul>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-icon">💰</div>
+                                <h4>MS-Créditos</h4>
+                                <p>Puerto: 3002</p>
+                                <ul>
+                                    <li>Solicitudes</li>
+                                    <li>Aprobaciones</li>
+                                    <li>Consultas</li>
+                                </ul>
+                            </div>
+
+                            <div class="service-box db">
+                                <div class="service-icon">🗄️</div>
+                                <h4>PostgreSQL</h4>
+                                <p>Puerto: 5432</p>
+                                <ul>
+                                    <li>Base de datos</li>
+                                    <li>Tablas relacionadas</li>
+                                    <li>Datos persistentes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-section">
+                        <h3>💻 Stack Tecnológico</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <strong>Backend:</strong>
+                                <span>Node.js 22 + Express</span>
+                            </div>
+                            <div class="tech-item">
+                                <strong>Base de Datos:</strong>
+                                <span>PostgreSQL 16</span>
+                            </div>
+                            <div class="tech-item">
+                                <strong>Contenedores:</strong>
+                                <span>Docker + Docker Compose</span>
+                            </div>
+                            <div class="tech-item">
+                                <strong>Seguridad:</strong>
+                                <span>Helmet, CORS, Validator</span>
+                            </div>
+                            <div class="tech-item">
+                                <strong>Comunicación:</strong>
+                                <span>REST APIs + Axios</span>
+                            </div>
+                            <div class="tech-item">
+                                <strong>Frontend:</strong>
+                                <span>HTML5, CSS3, JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-section">
+                        <h3>🔄 Flujo de Operación</h3>
+                        <div class="flow-steps">
+                            <div class="flow-step">
+                                <span class="step-number">1</span>
+                                <div class="step-content">
+                                    <h4>Solicitud de Crédito</h4>
+                                    <p>Cliente solicita crédito a través del frontend</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-number">2</span>
+                                <div class="step-content">
+                                    <h4>Verificación</h4>
+                                    <p>MS-Créditos verifica que el cliente existe en MS-Clientes</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-number">3</span>
+                                <div class="step-content">
+                                    <h4>Registro</h4>
+                                    <p>Se registra la solicitud en PostgreSQL con estado "pendiente"</p>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-number">4</span>
+                                <div class="step-content">
+                                    <h4>Aprobación/Rechazo</h4>
+                                    <p>Analista aprueba o rechaza el crédito desde el frontend</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-section">
+                        <h3>✨ Características Implementadas</h3>
+                        <div class="features-grid">
+                            <div class="feature">✅ Arquitectura de Microservicios</div>
+                            <div class="feature">✅ Contenedores Docker</div>
+                            <div class="feature">✅ API RESTful</div>
+                            <div class="feature">✅ Validaciones de entrada</div>
+                            <div class="feature">✅ Manejo de errores</div>
+                            <div class="feature">✅ Seguridad (Helmet, CORS)</div>
+                            <div class="feature">✅ Base de datos relacional</div>
+                            <div class="feature">✅ Comunicación entre servicios</div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
