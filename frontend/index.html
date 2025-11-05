@@ -25,6 +25,7 @@
             <button class="tab-btn" data-tab="creditos">💰 Créditos</button>
             <button class="tab-btn" data-tab="solicitar">➕ Nueva Solicitud</button>
             <button class="tab-btn" data-tab="arquitectura">🏗️ Arquitectura</button>
+            <button class="tab-btn" data-tab="repaso">📚 Repaso Entrevista</button>
         </nav>
 
         <!-- Tab Content -->
@@ -223,6 +224,329 @@
                             <div class="feature">✅ Comunicación entre servicios</div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Tab: Repaso Entrevista -->
+            <section id="tab-repaso" class="tab-content">
+                <div class="section-header">
+                    <h2>📚 Repaso para Entrevista Flamingo</h2>
+                </div>
+
+                <div class="repaso-container">
+
+                    <!-- Oracle vs PostgreSQL -->
+                    <div class="repaso-section oracle-section">
+                        <h3>🗃️ Oracle vs PostgreSQL - Diferencias Clave</h3>
+
+                        <div class="comparison-grid">
+                            <div class="comparison-item">
+                                <h4>1. Autoincremento</h4>
+                                <div class="code-comparison">
+                                    <div class="code-block">
+                                        <strong>PostgreSQL:</strong>
+                                        <pre>CREATE TABLE clientes (
+  id SERIAL PRIMARY KEY
+);</pre>
+                                    </div>
+                                    <div class="code-block">
+                                        <strong>Oracle:</strong>
+                                        <pre>CREATE SEQUENCE clientes_seq;
+CREATE TABLE clientes (
+  id NUMBER PRIMARY KEY
+);
+
+CREATE TRIGGER clientes_bi
+BEFORE INSERT ON clientes
+FOR EACH ROW
+BEGIN
+  :NEW.id := clientes_seq.NEXTVAL;
+END;</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <h4>2. Limitar Resultados</h4>
+                                <div class="code-comparison">
+                                    <div class="code-block">
+                                        <strong>PostgreSQL:</strong>
+                                        <pre>SELECT * FROM clientes
+LIMIT 10;</pre>
+                                    </div>
+                                    <div class="code-block">
+                                        <strong>Oracle (moderno):</strong>
+                                        <pre>SELECT * FROM clientes
+FETCH FIRST 10 ROWS ONLY;
+
+-- Antiguo:
+SELECT * FROM clientes
+WHERE ROWNUM <= 10;</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <h4>3. Fecha Actual</h4>
+                                <div class="code-comparison">
+                                    <div class="code-block">
+                                        <strong>PostgreSQL:</strong>
+                                        <pre>SELECT NOW();
+SELECT CURRENT_TIMESTAMP;</pre>
+                                    </div>
+                                    <div class="code-block">
+                                        <strong>Oracle:</strong>
+                                        <pre>SELECT SYSDATE FROM DUAL;
+SELECT CURRENT_TIMESTAMP
+FROM DUAL;</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comparison-item">
+                                <h4>4. NULL Handling</h4>
+                                <div class="code-comparison">
+                                    <div class="code-block">
+                                        <strong>PostgreSQL:</strong>
+                                        <pre>SELECT COALESCE(
+  telefono, 'Sin teléfono'
+) FROM clientes;</pre>
+                                    </div>
+                                    <div class="code-block">
+                                        <strong>Oracle:</strong>
+                                        <pre>SELECT NVL(
+  telefono, 'Sin teléfono'
+) FROM clientes;
+
+-- También: COALESCE</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="key-point">
+                            <strong>💡 Tu Respuesta:</strong>
+                            <p>"Tengo experiencia sólida en PostgreSQL. Aunque no he trabajado con Oracle directamente, entiendo los conceptos fundamentales de RDBMS. PL/pgSQL es muy similar a PL/SQL. Mi capacidad de aprendizaje rápido me permite adaptarme - este proyecto completo lo desarrollé en 3 días."</p>
+                        </div>
+                    </div>
+
+                    <!-- OWASP Top 3 -->
+                    <div class="repaso-section security-section">
+                        <h3>🔒 OWASP Top 3 - Seguridad Web</h3>
+
+                        <div class="security-grid">
+                            <div class="security-item critical">
+                                <h4>1. SQL Injection</h4>
+                                <div class="vulnerability-demo">
+                                    <div class="bad-code">
+                                        <span class="badge-danger">❌ VULNERABLE</span>
+                                        <pre>const query = `SELECT * FROM clientes
+WHERE id = ${req.params.id}`;
+// Alguien envía: id=1 OR 1=1</pre>
+                                    </div>
+                                    <div class="good-code">
+                                        <span class="badge-success">✅ SEGURO (Tu Proyecto)</span>
+                                        <pre>const query = 'SELECT * FROM clientes
+WHERE id = $1';
+await pool.query(query, [id]);
+// Parameterized Query</pre>
+                                    </div>
+                                </div>
+                                <div class="your-answer">
+                                    <strong>Tu Respuesta:</strong>
+                                    <p>"En mi proyecto previne SQL Injection usando <strong>parameterized queries</strong>. Nunca concateno valores de usuario directamente en SQL. También valido todos los inputs con express-validator antes de llegar a la base de datos."</p>
+                                </div>
+                            </div>
+
+                            <div class="security-item warning">
+                                <h4>2. XSS (Cross-Site Scripting)</h4>
+                                <p class="security-description">
+                                    <strong>Problema:</strong> Inyección de scripts maliciosos en campos de texto que se ejecutan en el navegador de otros usuarios.
+                                </p>
+                                <div class="security-solution">
+                                    <strong>Tu Solución:</strong>
+                                    <pre>// Helmet.js
+app.use(helmet());
+// Configura headers seguros:
+// - Content-Security-Policy
+// - X-XSS-Protection
+// - X-Content-Type-Options</pre>
+                                </div>
+                                <div class="your-answer">
+                                    <strong>Tu Respuesta:</strong>
+                                    <p>"Implementé <strong>Helmet.js</strong> que configura automáticamente headers de seguridad como Content-Security-Policy y X-XSS-Protection. Esto previene que scripts maliciosos se ejecuten en el navegador."</p>
+                                </div>
+                            </div>
+
+                            <div class="security-item info">
+                                <h4>3. Broken Authentication</h4>
+                                <p class="security-description">
+                                    <strong>Problema:</strong> Autenticación mal implementada permite acceso no autorizado.
+                                </p>
+                                <div class="security-solution">
+                                    <strong>Buenas Prácticas:</strong>
+                                    <ul>
+                                        <li>✅ Hash de contraseñas (bcrypt, min 10 rounds)</li>
+                                        <li>✅ JWT con expiración corta (15-30 min)</li>
+                                        <li>✅ Refresh tokens</li>
+                                        <li>✅ Rate limiting (prevenir brute force)</li>
+                                        <li>✅ HTTPS obligatorio en producción</li>
+                                    </ul>
+                                </div>
+                                <div class="your-answer">
+                                    <strong>Tu Respuesta:</strong>
+                                    <p>"Aunque no implementé autenticación completa por tiempo, tengo la estructura preparada con JWT_SECRET. En producción implementaría: hash con bcrypt, JWT con expiración corta, refresh tokens, rate limiting con express-rate-limit, y HTTPS obligatorio."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Respuestas STAR -->
+                    <div class="repaso-section star-section">
+                        <h3>🎤 Respuestas STAR Preparadas</h3>
+
+                        <div class="star-questions">
+                            <div class="star-item">
+                                <h4>P: "Cuéntame sobre este proyecto"</h4>
+                                <div class="star-answer">
+                                    <div class="star-point">
+                                        <span class="star-label">S (Situación):</span>
+                                        <p>"Desarrollé un sistema de gestión de créditos con arquitectura de microservicios para demostrar mis habilidades en backend moderno."</p>
+                                    </div>
+                                    <div class="star-point">
+                                        <span class="star-label">T (Tarea):</span>
+                                        <p>"Mi objetivo era crear una solución escalable que separara responsabilidades y demostrara buenas prácticas de seguridad."</p>
+                                    </div>
+                                    <div class="star-point">
+                                        <span class="star-label">A (Acción):</span>
+                                        <p>"Implementé dos microservicios en Node.js/Express: MS-Clientes para CRUD de clientes y MS-Créditos para gestión de solicitudes. Usé Docker Compose para orquestar los servicios con PostgreSQL. Implementé comunicación REST entre servicios, validaciones, y seguridad con Helmet y CORS."</p>
+                                    </div>
+                                    <div class="star-point">
+                                        <span class="star-label">R (Resultado):</span>
+                                        <p>"El sistema funciona end-to-end: puedo crear solicitudes, aprobarlas/rechazarlas, consultar por cliente. El MS-Créditos verifica automáticamente que el cliente existe, demostrando comunicación entre microservicios. Todo containerizado y listo para escalar."</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="star-item">
+                                <h4>P: "¿Por qué Flamingo?"</h4>
+                                <div class="answer-box highlight">
+                                    <p>"Me interesa Flamingo porque están en <strong>transformación digital</strong> implementando arquitecturas modernas como microservicios y cloud. Su enfoque en <strong>inclusión financiera</strong> es inspirador. Quiero ser parte del equipo que está modernizando la plataforma de crédito. Además, la oportunidad de trabajar con <strong>Oracle</strong> y aprender de un equipo experimentado es exactamente el crecimiento técnico que busco."</p>
+                                </div>
+                            </div>
+
+                            <div class="star-item">
+                                <h4>P: "¿Cuál es tu mayor debilidad?"</h4>
+                                <div class="answer-box positive">
+                                    <p>"Aunque no he trabajado directamente con Oracle, tengo experiencia sólida en PostgreSQL que es muy similar. Entiendo perfectamente los conceptos de bases de datos relacionales, PL/SQL es similar a PL/pgSQL que he usado. Mi <strong>capacidad de aprendizaje rápido</strong> me permite adaptarme: este proyecto completo lo desarrollé en 3 días. Estoy genuinamente entusiasmado por aprender Oracle específicamente."</p>
+                                </div>
+                            </div>
+
+                            <div class="star-item">
+                                <h4>P: "¿Qué desafío técnico enfrentaste?"</h4>
+                                <div class="answer-box">
+                                    <p>"Al principio, el MS-Créditos fallaba al verificar clientes. Descubrí que era un problema de <strong>comunicación entre contenedores Docker</strong>. Resolví usando los nombres de servicio de Docker Compose (http://microservicio-clientes:3001) en lugar de localhost. También implementé mejor <strong>manejo de errores</strong> para cuando el servicio de clientes no está disponible."</p>
+                                </div>
+                            </div>
+
+                            <div class="star-item">
+                                <h4>P: "¿Por qué microservicios?"</h4>
+                                <div class="answer-box">
+                                    <p>"Elegí microservicios para demostrar <strong>escalabilidad y separación de responsabilidades</strong>. En producción, si el servicio de créditos tiene mucha carga, puedo escalar solo ese servicio. También facilita el <strong>despliegue independiente</strong>: puedo actualizar MS-Créditos sin tocar MS-Clientes. Y cada equipo podría trabajar de forma independiente."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preguntas para hacer -->
+                    <div class="repaso-section questions-section">
+                        <h3>❓ Preguntas para Hacer al Entrevistador</h3>
+                        <div class="questions-list">
+                            <div class="question-item">
+                                <span class="q-number">1</span>
+                                <p>"¿Cuál es el stack tecnológico actual del equipo de créditos?"</p>
+                            </div>
+                            <div class="question-item">
+                                <span class="q-number">2</span>
+                                <p>"¿Qué versión de Oracle están usando y qué características específicas utilizan?"</p>
+                            </div>
+                            <div class="question-item">
+                                <span class="q-number">3</span>
+                                <p>"¿Cómo manejan el despliegue de microservicios actualmente?"</p>
+                            </div>
+                            <div class="question-item">
+                                <span class="q-number">4</span>
+                                <p>"¿Cuáles son los principales desafíos técnicos que enfrenta el equipo?"</p>
+                            </div>
+                            <div class="question-item">
+                                <span class="q-number">5</span>
+                                <p>"¿Qué oportunidades de crecimiento y aprendizaje hay en el rol?"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tips Finales -->
+                    <div class="repaso-section tips-section">
+                        <h3>⚡ Tips Finales para la Entrevista</h3>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-icon">💻</div>
+                                <h4>Muestra tu proyecto en vivo</h4>
+                                <p>Es tu mejor carta. Demuestra que funciona end-to-end.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🗣️</div>
+                                <h4>Piensa en voz alta</h4>
+                                <p>En problemas técnicos, explica tu proceso de pensamiento.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🔗</div>
+                                <h4>Relaciona con experiencia</h4>
+                                <p>Conecta cada pregunta con ejemplos concretos de tu trabajo.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🎓</div>
+                                <h4>Admite lo que no sabes</h4>
+                                <p>Pero siempre muestra ganas de aprender y tu plan para lograrlo.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">❓</div>
+                                <h4>Haz preguntas inteligentes</h4>
+                                <p>Demuestra interés genuino en el rol y la empresa.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">😊</div>
+                                <h4>Sé auténtico</h4>
+                                <p>Tu entusiasmo y pasión por la tecnología son clave.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frase de Cierre -->
+                    <div class="repaso-section closing-section">
+                        <h3>🎯 Frase de Cierre Poderosa</h3>
+                        <div class="closing-statement">
+                            <p>"Este proyecto demuestra mi capacidad para diseñar e implementar soluciones backend modernas y escalables. Aunque lo desarrollé con PostgreSQL, entiendo que Flamingo usa Oracle, y estoy <strong>entusiasmado por aplicar estos mismos principios</strong> de arquitectura, seguridad y buenas prácticas en su stack tecnológico. Mi experiencia con bases de datos relacionales y PL/pgSQL me da una <strong>base sólida para aprender rápidamente</strong> PL/SQL y Oracle."</p>
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="repaso-section checklist-section">
+                        <h3>✅ Checklist Pre-Entrevista</h3>
+                        <div class="checklist">
+                            <label><input type="checkbox"> Servicios Docker corriendo (docker ps)</label>
+                            <label><input type="checkbox"> Frontend abierto en navegador (localhost:8080)</label>
+                            <label><input type="checkbox"> Repasé Oracle vs PostgreSQL</label>
+                            <label><input type="checkbox"> Repasé OWASP Top 3</label>
+                            <label><input type="checkbox"> Practiqué respuestas STAR</label>
+                            <label><input type="checkbox"> Preparé preguntas para el entrevistador</label>
+                            <label><input type="checkbox"> Revisé mi CV y experiencia relevante</label>
+                            <label><input type="checkbox"> Cámara y micrófono funcionando</label>
+                            <label><input type="checkbox"> Ambiente tranquilo preparado</label>
+                            <label><input type="checkbox"> ¡Respiro profundo y confianza! 💪</label>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>
