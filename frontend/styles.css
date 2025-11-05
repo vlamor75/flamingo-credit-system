@@ -550,6 +550,137 @@ body {
     padding-bottom: 10px;
 }
 
+/* PostgreSQL Concepts */
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 20px;
+}
+
+.concept-item {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+}
+
+.concept-item h4 {
+    color: var(--dark);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.concept-content p {
+    margin: 10px 0;
+    color: var(--gray);
+}
+
+.concept-content pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+/* Git Section */
+.git-concepts {
+    display: grid;
+    gap: 25px;
+}
+
+.git-item {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.git-item h4 {
+    color: var(--dark);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.commit-list {
+    display: grid;
+    gap: 10px;
+}
+
+.commit-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid var(--success);
+}
+
+.commit-hash {
+    background: #282c34;
+    color: #61dafb;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.commit-msg {
+    color: var(--dark);
+    flex: 1;
+}
+
+.git-commands {
+    display: grid;
+    gap: 15px;
+}
+
+.command-block {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.command-block strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.command-block pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.conventions {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.conventions p {
+    margin: 8px 0;
+    padding: 8px;
+    background: var(--light);
+    border-radius: 4px;
+}
+
+.conventions strong {
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+}
+
 /* Oracle Comparison */
 .comparison-grid {
     display: grid;

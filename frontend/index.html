@@ -25,7 +25,7 @@
             <button class="tab-btn" data-tab="creditos">💰 Créditos</button>
             <button class="tab-btn" data-tab="solicitar">➕ Nueva Solicitud</button>
             <button class="tab-btn" data-tab="arquitectura">🏗️ Arquitectura</button>
-            <button class="tab-btn" data-tab="repaso">📚 Repaso Entrevista</button>
+            <button class="tab-btn" data-tab="repaso">Docs →</button>
         </nav>
 
         <!-- Tab Content -->
@@ -230,14 +230,204 @@
             <!-- Tab: Repaso Entrevista -->
             <section id="tab-repaso" class="tab-content">
                 <div class="section-header">
-                    <h2>📚 Repaso para Entrevista Flamingo</h2>
+                    <h2>Biblioteca Técnica del Proyecto</h2>
                 </div>
 
                 <div class="repaso-container">
 
+                    <!-- PostgreSQL -->
+                    <div class="repaso-section postgres-section">
+                        <h3>PostgreSQL - Conceptos Implementados</h3>
+
+                        <div class="concepts-grid">
+                            <div class="concept-item">
+                                <h4>SERIAL vs IDENTITY</h4>
+                                <div class="concept-content">
+                                    <p><strong>En este proyecto:</strong> Usamos SERIAL para autoincremento</p>
+                                    <pre>CREATE TABLE clientes (
+  id SERIAL PRIMARY KEY,  -- Auto-incrementa automáticamente
+  cedula VARCHAR(15) UNIQUE
+);</pre>
+                                    <p><strong>Alternativa moderna (PostgreSQL 10+):</strong></p>
+                                    <pre>CREATE TABLE clientes (
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+  cedula VARCHAR(15) UNIQUE
+);</pre>
+                                </div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h4>Foreign Keys (Integridad Referencial)</h4>
+                                <div class="concept-content">
+                                    <p><strong>Implementado en tabla créditos:</strong></p>
+                                    <pre>CREATE TABLE creditos (
+  id SERIAL PRIMARY KEY,
+  cliente_id INTEGER NOT NULL,
+  monto_solicitado DECIMAL(15,2),
+
+  CONSTRAINT fk_cliente
+    FOREIGN KEY (cliente_id)
+    REFERENCES clientes(id)
+    ON DELETE CASCADE  -- Si borras cliente, borra créditos
+);</pre>
+                                    <p><strong>Ventajas:</strong> Garantiza que no haya créditos de clientes inexistentes</p>
+                                </div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h4>Índices para Performance</h4>
+                                <div class="concept-content">
+                                    <p><strong>Implementados en el proyecto:</strong></p>
+                                    <pre>-- Índice en columnas de búsqueda frecuente
+CREATE INDEX idx_clientes_cedula
+  ON clientes(cedula);
+
+CREATE INDEX idx_creditos_cliente
+  ON creditos(cliente_id);
+
+CREATE INDEX idx_creditos_estado
+  ON creditos(estado);</pre>
+                                    <p><strong>Por qué:</strong> Mejora velocidad de búsquedas WHERE y JOIN</p>
+                                </div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h4>Parameterized Queries (Seguridad)</h4>
+                                <div class="concept-content">
+                                    <p><strong>Tu implementación:</strong></p>
+                                    <pre>// Usando pg (node-postgres)
+const query = 'SELECT * FROM clientes WHERE id = $1';
+const result = await pool.query(query, [id]);
+
+// $1, $2, $3... son placeholders
+const query2 = 'INSERT INTO clientes
+  (cedula, nombre, apellido)
+  VALUES ($1, $2, $3)';
+await pool.query(query2, [cedula, nombre, apellido]);</pre>
+                                    <p><strong>Previene:</strong> SQL Injection attacks</p>
+                                </div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h4>JOINS - Enriquecer Respuestas</h4>
+                                <div class="concept-content">
+                                    <p><strong>Ejemplo del proyecto:</strong></p>
+                                    <pre>SELECT
+  c.id,
+  c.monto_solicitado,
+  c.estado,
+  cl.nombre || ' ' || cl.apellido as nombre_cliente,
+  cl.cedula
+FROM creditos c
+INNER JOIN clientes cl
+  ON c.cliente_id = cl.id
+ORDER BY c.created_at DESC;</pre>
+                                    <p><strong>Resultado:</strong> Una consulta obtiene datos de ambas tablas</p>
+                                </div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h4>Timestamps Automáticos</h4>
+                                <div class="concept-content">
+                                    <p><strong>Implementado en todas las tablas:</strong></p>
+                                    <pre>CREATE TABLE clientes (
+  id SERIAL PRIMARY KEY,
+  ...
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+                                    <p><strong>Uso:</strong> Auditoría y tracking de cambios</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="key-point">
+                            <strong>💡 Para la Entrevista:</strong>
+                            <p>"En este proyecto trabajé con PostgreSQL implementando foreign keys para integridad referencial, índices para optimizar búsquedas, parameterized queries para prevenir SQL injection, y JOINs para enriquecer respuestas de la API. Mi experiencia con PostgreSQL me da una base sólida para trabajar con Oracle, ya que ambos son RDBMS con conceptos similares."</p>
+                        </div>
+                    </div>
+
+                    <!-- Git -->
+                    <div class="repaso-section git-section">
+                        <h3>Git - Control de Versiones</h3>
+
+                        <div class="git-concepts">
+                            <div class="git-item">
+                                <h4>Historial del Proyecto (6 Commits)</h4>
+                                <div class="commit-list">
+                                    <div class="commit-item">
+                                        <span class="commit-hash">17bc846</span>
+                                        <span class="commit-msg">feat: agregar pestaña de repaso para entrevista</span>
+                                    </div>
+                                    <div class="commit-item">
+                                        <span class="commit-hash">d8ba543</span>
+                                        <span class="commit-msg">docs: agregar documentación técnica completa</span>
+                                    </div>
+                                    <div class="commit-item">
+                                        <span class="commit-hash">66ad977</span>
+                                        <span class="commit-msg">feat: agregar pestaña de arquitectura al frontend</span>
+                                    </div>
+                                    <div class="commit-item">
+                                        <span class="commit-hash">afe242a</span>
+                                        <span class="commit-msg">feat: frontend web para demostrar sistema</span>
+                                    </div>
+                                    <div class="commit-item">
+                                        <span class="commit-hash">30e5066</span>
+                                        <span class="commit-msg">feat: microservicio de créditos con integración completa</span>
+                                    </div>
+                                    <div class="commit-item">
+                                        <span class="commit-hash">321f410</span>
+                                        <span class="commit-msg">feat: microservicio de clientes con Docker y PostgreSQL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="git-item">
+                                <h4>Comandos Usados en el Proyecto</h4>
+                                <div class="git-commands">
+                                    <div class="command-block">
+                                        <strong>Inicialización:</strong>
+                                        <pre>git init
+git add .
+git commit -m "mensaje"</pre>
+                                    </div>
+                                    <div class="command-block">
+                                        <strong>Ver estado:</strong>
+                                        <pre>git status          # Ver archivos modificados
+git log --oneline   # Ver historial de commits
+git diff            # Ver cambios no commiteados</pre>
+                                    </div>
+                                    <div class="command-block">
+                                        <strong>Branching:</strong>
+                                        <pre>git branch          # Listar ramas
+git branch feature  # Crear rama
+git checkout main   # Cambiar a rama main
+git merge feature   # Mergear rama</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="git-item">
+                                <h4>Conventional Commits (Usado en este proyecto)</h4>
+                                <div class="conventions">
+                                    <p><strong>feat:</strong> Nueva funcionalidad</p>
+                                    <p><strong>fix:</strong> Corrección de bug</p>
+                                    <p><strong>docs:</strong> Cambios en documentación</p>
+                                    <p><strong>chore:</strong> Tareas de mantenimiento</p>
+                                    <p><strong>refactor:</strong> Refactorización de código</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="key-point">
+                            <strong>💡 Para la Entrevista:</strong>
+                            <p>"Este proyecto tiene 6 commits bien documentados usando Conventional Commits. Uso Git diariamente para control de versiones, branches para features, y mensajes descriptivos. Tengo experiencia con flujos de trabajo Git en equipo."</p>
+                        </div>
+                    </div>
+
                     <!-- Oracle vs PostgreSQL -->
                     <div class="repaso-section oracle-section">
-                        <h3>🗃️ Oracle vs PostgreSQL - Diferencias Clave</h3>
+                        <h3>Oracle vs PostgreSQL - Diferencias Clave</h3>
 
                         <div class="comparison-grid">
                             <div class="comparison-item">
